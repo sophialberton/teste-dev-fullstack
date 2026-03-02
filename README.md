@@ -3,7 +3,7 @@ Teste para Vaga de Desenvolvedor Full Stack
 
 
 Estrutura inicial:
-
+```
 /backend
 ├── /src
 │   ├── /@types            # Definições de tipos globais
@@ -18,10 +18,10 @@ Estrutura inicial:
 │   └── server.ts          # Inicialização do servidor
 ├── package.json
 └── tsconfig.json
-
+```
 
 ---
-
+```
 /frontend
 ├── /src
 │   ├── /assets            # Imagens e ícones
@@ -36,3 +36,4 @@ Estrutura inicial:
 │   └── main.tsx
 ├── package.json
 └── vite.config.ts
+```
