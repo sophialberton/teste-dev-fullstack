@@ -75,6 +75,8 @@ cd ../backend
 npm install
 # Inicie o servidor
 npm run dev
+
+npm install typescript ts-node-dev @types/node @types/express --save-dev
 ```
 # 🌐 Como Visualizar a Página Web
 
