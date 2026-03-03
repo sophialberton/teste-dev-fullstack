@@ -5,6 +5,7 @@ import { SearchInput } from './components/button/styles';
 import { IoAddOutline } from 'react-icons/io5';
 import styled from 'styled-components';
 import { useCustomer } from './contexts/CustomerContext';
+import plusCircle from './assets/plus-circle.svg';
 
 const MainContent = styled.main`
   padding: 104px 96px 40px; 
@@ -34,13 +35,12 @@ function App() {
       <MainContent>
         <ActionBar>
           <PrimaryButton>
-            <IoAddOutline size={16} />
+          <img src={plusCircle} alt="Círculo Mais" className='circulo-mais'/>
             Novo Registro
           </PrimaryButton>
           <SearchInput placeholder="Pesquisar..." />
           <span>{customers.length} Registros</span>
         </ActionBar>
-        
         <CustomerTable />
       </MainContent>
     </>

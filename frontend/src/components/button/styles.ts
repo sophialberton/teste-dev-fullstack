@@ -20,6 +20,13 @@ export const PrimaryButton = styled.button`
   &:hover {
     opacity: 0.9;
   }
+
+  .circulo-mais {
+    width: 16px;  /* Tamanho padrão de ícone */
+    height: 16px;
+    display: block;
+    /* Removemos o border-radius e object-position que eram para fotos */
+  }
 `;
 
 export const SearchInput = styled.input`
