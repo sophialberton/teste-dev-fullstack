@@ -7,9 +7,7 @@ import { initializeDatabase } from './lib/initDb'; // Importe a função
 const app = express();
 const customerController = new CustomerController();
 
-app.use(cors({
-  origin: 'http://localhost:5173' // URL do seu Vite/React
-}));
+app.use(cors());
 app.use(express.json());
 
 // Inicializa o banco antes de subir o servidor

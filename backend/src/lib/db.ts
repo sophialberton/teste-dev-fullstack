@@ -1,10 +1,13 @@
 import mariadb from 'mariadb';
+import dotenv from 'dotenv';
+
+dotenv.config(); // Carrega as variáveis do .env
 
 const pool = mariadb.createPool({
-     host: 'localhost', 
-     user: 'root', 
-     password: '', 
-     database: 'goalfy_test',
+     host: process.env.DB_HOST || 'localhost', 
+     user: process.env.DB_USER || 'root', 
+     password: process.env.DB_PASSWORD || '', 
+     database: process.env.DB_NAME || 'goalfy_test',
      connectionLimit: 5
 });
 
