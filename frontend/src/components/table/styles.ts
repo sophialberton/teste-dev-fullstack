@@ -40,7 +40,10 @@ export const StyledTable = styled.table`
       background-color: #E8E8E8;
     }
   }
-  
+   tbody tr {
+    background-color: #F9F9F9; 
+    transition: background-color 0.2s;
+  }
   td {
     padding: 12px 16px;
     border-bottom: 1px solid #F5F5F5;
@@ -55,7 +58,6 @@ export const StyledTable = styled.table`
   th, td {
     white-space: nowrap; /* Evita que o texto quebre linha em telas menores */
   }
-  /* Estilo para a linha selecionada (borda azul) conforme image_7e50e1 */
   tbody tr.selected {
     outline: 1px solid #0091FF;
     background-color: #F0F7FF;
@@ -71,6 +73,6 @@ export const HeaderCellContent = styled.div`
   img {
     width: 16px;
     height: 16px;
-    opacity: 0.6; /* Ajuste conforme a visibilidade no design */
+    opacity: 0.6;
   }
 `;
