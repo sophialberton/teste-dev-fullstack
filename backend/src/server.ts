@@ -7,14 +7,18 @@ import { initializeDatabase } from './lib/initDb'; // Importe a função
 const app = express();
 const customerController = new CustomerController();
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173' // URL do seu Vite/React
+}));
 app.use(express.json());
 
 // Inicializa o banco antes de subir o servidor
 initializeDatabase().then(() => {
   // Rotas
-  app.get('/customers', customerController.index);
-  app.post('/customers', customerController.create);
+    app.get('/customers', customerController.index);
+    app.post('/customers', customerController.create);
+    app.put('/customers/:id', customerController.update); 
+    app.delete('/customers/:id', customerController.delete);
 
   const PORT = 3333;
   app.listen(PORT, () => {
