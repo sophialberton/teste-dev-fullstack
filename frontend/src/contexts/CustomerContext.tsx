@@ -1,7 +1,7 @@
 // src/contexts/CustomerContext.tsx
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
-interface Customer {
+export interface Customer {
   id: string;
   name: string;
   email: string;
@@ -13,7 +13,7 @@ interface Customer {
 
 interface CustomerContextData {
   customers: Customer[];
-  addCustomer: (customer: Customer) => void;
+  addCustomer: (customer: Omit<Customer, 'id'>) => void;
 }
 
 const CustomerContext = createContext<CustomerContextData>({} as CustomerContextData);
@@ -21,8 +21,9 @@ const CustomerContext = createContext<CustomerContextData>({} as CustomerContext
 export const CustomerProvider = ({ children }: { children: ReactNode }) => {
   const [customers, setCustomers] = useState<Customer[]>([]);
 
-  const addCustomer = (customer: Customer) => {
-    setCustomers(prev => [...prev, customer]);
+  const addCustomer = (customerData: Omit<Customer, 'id'>) => {
+    const newCustomer = { ...customerData, id: Math.random().toString(36) };
+    setCustomers(prev => [newCustomer, ...prev]);
   };
 
   return (
