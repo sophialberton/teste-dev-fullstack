@@ -1,38 +1,47 @@
+import { Header } from './components/header';
+import { CustomerTable } from './components/table';
+import { PrimaryButton } from './components/button/styles';
+import { SearchInput } from './components/button/styles';
+import { IoAddOutline } from 'react-icons/io5';
 import styled from 'styled-components';
 import { useCustomer } from './contexts/CustomerContext';
-import { PrimaryButton } from './components/button';
-import { IoAddOutline } from 'react-icons/io5';
 
-const Container = styled.div`
-  padding: 40px;
-  background-color: ${props => props.theme.colors.background};
-  min-height: 100vh; /* Garante que o fundo ocupe a tela toda */
-  width: 100%;
+const MainContent = styled.main`
+  padding: 40px 96px; // Conforme o 'left: 96px' da sua especificação
+`;
+
+const ActionBar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 25px;
+
+  span {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+  }
 `;
 
 function App() {
   const { customers } = useCustomer();
 
   return (
-    <Container>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
-        <h2 style={{ color: '#6C4BB3' }}>Goalfy</h2>
-        <span>| Registro de Clientes</span>
-      </div>
-
-      <PrimaryButton>
-        <IoAddOutline size={20} />
-        Novo Registro
-      </PrimaryButton>
-
-      <div style={{ marginTop: '20px', background: 'white', padding: '20px', borderRadius: '8px', color: '#333' }}>
-        {customers.length === 0 ? (
-          <p>Nenhum cliente cadastrado ainda.</p>
-        ) : (
-          <p>Você tem {customers.length} registros.</p>
-        )}
-      </div>
-    </Container>
+    <>
+      <Header />
+      <MainContent>
+        <ActionBar>
+          <PrimaryButton>
+            <IoAddOutline size={16} />
+            Novo Registro
+          </PrimaryButton>
+          <SearchInput placeholder="Pesquisar..." />
+          <span>{customers.length} Registros</span>
+        </ActionBar>
+        
+        <CustomerTable />
+      </MainContent>
+    </>
   );
 }
 

@@ -1,11 +1,12 @@
-// src/styles/themes.ts
 export const theme = {
   colors: {
-    primary: '#6C4BB3',
-    background: '#F5F5F5',
-    text: '#333',
-    white: '#FFFFFF',
-    border: '#E0E0E0',
-    grayText: '#666'
+    primary: '#5D29A1',
+    secondary: '#6C4BB3',
+    background: '#F8F9FA',
+    textPrimary: '#232426',
+    textSecondary: '#666D73',
+    rowText: '#363E40',
+    border: '#E8E8E8',
+    white: '#FFFFFF'
   }
 };
