@@ -17,17 +17,29 @@ export const ModalContent = styled.div`
   background: white;
   width: 480px;
   border-radius: 12px;
-  padding: 40px;
+  padding: 0 0 40px 0; /* Remove padding superior para a faixa encostar no topo */
   position: relative;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  overflow: hidden; /* Mantém os cantos da faixa cinza arredondados conforme o modal */
+`;
 
-  .close-button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+// Esta é a faixa cinza que cobre apenas a área do X
+export const HeaderBar = styled.div`
+  width: 100%;
+  height: 32px; /* Altura pequena para cobrir apenas o X */
+  background-color: #F2F2F2; /* Cinza claro */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 12px;
+
+  button {
     background: none;
     border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -35,19 +47,26 @@ export const ModalHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 30px;
+  padding: 24px 40px 10px 40px; /* Padding ajustado para o título */
 
   h2 {
     font-size: 24px;
     font-weight: 600;
     color: #232426;
   }
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
+// Garante que o formulário mantenha o alinhamento de 40px
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding: 0 40px;
 `;
 
 export const InputGroup = styled.div`

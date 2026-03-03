@@ -3,6 +3,7 @@ import { IoClose } from 'react-icons/io5';
 import { 
   ModalOverlay, 
   ModalContent, 
+  HeaderBar,
   ModalHeader, 
   Form, 
   InputGroup, 
@@ -20,12 +21,15 @@ export const CustomerModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <ModalOverlay onClick={onClose}>
+<ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        <button className="close-button" onClick={onClose}>
-          <IoClose size={24} color="#999" />
-        </button>
         
+        <HeaderBar>
+          <button onClick={onClose}>
+            <IoClose size={20} color="#999" />
+          </button>
+        </HeaderBar>
+
         <ModalHeader>
           <img src="/src/assets/icon-registro.svg" alt="" />
           <h2>Novo Cliente</h2>
