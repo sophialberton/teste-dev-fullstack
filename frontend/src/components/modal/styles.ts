@@ -15,12 +15,24 @@ export const ModalOverlay = styled.div`
 
 export const ModalContent = styled.div`
   background: white;
-  width: 480px;
+  /* Responsividade aqui: */
+  width: 95%; 
+  max-width: 480px; 
+  max-height: 90vh; /* Não deixa o modal ser maior que a altura da tela */
+  overflow-y: auto; /* Adiciona scroll interno se o form for muito longo */
   border-radius: 12px;
-  padding: 0 0 40px 0; /* Remove padding superior para a faixa encostar no topo */
+  padding: 0 0 30px 0; 
   position: relative;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  overflow: hidden; /* Mantém os cantos da faixa cinza arredondados conforme o modal */
+  overflow-x: hidden;
+  /* Estilização da barra de rolagem para ficar elegante */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e8e8e8;
+    border-radius: 10px;
+  }
 `;
 
 // Esta é a faixa cinza que cobre apenas a área do X

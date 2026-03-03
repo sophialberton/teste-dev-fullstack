@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { 
   ModalOverlay, 
@@ -11,6 +11,8 @@ import {
   InputWrapper, 
   SubmitButton 
 } from './styles';
+// Importamos o hook customizado que você criou no Context
+import { useCustomer } from '../../contexts/CustomerContext';
 
 interface ModalProps {
   isOpen: boolean;
@@ -18,10 +20,42 @@ interface ModalProps {
 }
 
 export const CustomerModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+  // Pegamos a função de busca de CEP do contexto
+  const { fetchAddressByCep } = useCustomer();
+
+  const [cep, setCep] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [loadingCep, setLoadingCep] = useState(false);
+
+  const handleCepChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    
+    // Opcional: Máscara básica de CEP (xxxxx-xxx)
+    value = value.replace(/\D/g, '');
+    if (value.length > 5) {
+      value = value.replace(/^(\d{5})(\d)/, '$1-$2');
+    }
+    
+    setCep(value.substring(0, 9));
+
+    // Quando atingir 8 dígitos numéricos, busca o endereço
+    if (value.replace(/\D/g, '').length === 8) {
+      setLoadingCep(true);
+      const data = await fetchAddressByCep(value); 
+      
+      if (data) {
+        setAddress(`${data.logradouro}, ${data.bairro}`);
+        setCity(`${data.localidade} - ${data.uf}`);
+      }
+      setLoadingCep(false);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
-<ModalOverlay onClick={onClose}>
+    <ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
         
         <HeaderBar>
@@ -35,7 +69,7 @@ export const CustomerModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           <h2>Novo Cliente</h2>
         </ModalHeader>
 
-        <Form>
+        <Form onSubmit={(e) => e.preventDefault()}>
           <InputGroup>
             <Label>Nome do Cliente</Label>
             <InputWrapper>
@@ -69,10 +103,41 @@ export const CustomerModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           </InputGroup>
 
           <InputGroup>
+            <Label>CEP</Label>
+            <InputWrapper>
+              <img src="/src/assets/cursor-text.svg" alt="" className="input-icon" />
+              <input 
+                type="text" 
+                placeholder="00000-000" 
+                value={cep}
+                onChange={handleCepChange}
+              />
+            </InputWrapper>
+          </InputGroup>
+
+          <InputGroup>
             <Label>Endereço</Label>
             <InputWrapper>
               <img src="/src/assets/cursor-text.svg" alt="" className="input-icon" />
-              <input type="text" placeholder="Digite aqui..." />
+              <input 
+                type="text" 
+                placeholder={loadingCep ? "Buscando..." : "Digite aqui..."} 
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </InputWrapper>
+          </InputGroup>
+
+          <InputGroup>
+            <Label>Cidade</Label>
+            <InputWrapper>
+              <img src="/src/assets/cursor-text.svg" alt="" className="input-icon" />
+              <input 
+                type="text" 
+                placeholder="Cidade - UF" 
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
             </InputWrapper>
           </InputGroup>
 
