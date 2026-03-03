@@ -2,10 +2,12 @@ import { Header } from './components/header';
 import { CustomerTable } from './components/table';
 import { PrimaryButton } from './components/button/styles';
 import { SearchInput } from './components/button/styles';
+import { SearchContainer } from './components/button/styles';
 import { IoAddOutline } from 'react-icons/io5';
 import styled from 'styled-components';
 import { useCustomer } from './contexts/CustomerContext';
 import plusCircle from './assets/plus-circle.svg';
+import searchIcon from './assets/search.svg';
 
 const MainContent = styled.main`
   padding: 104px 96px 40px; 
@@ -38,7 +40,10 @@ function App() {
           <img src={plusCircle} alt="Círculo Mais" className='circulo-mais'/>
             Novo Registro
           </PrimaryButton>
-          <SearchInput placeholder="Pesquisar..." />
+            <SearchContainer>
+              <img src={searchIcon} alt="Lupa" />
+            <SearchInput placeholder="Pesquisar..." />
+            </SearchContainer>
           <span>{customers.length} Registros</span>
         </ActionBar>
         <CustomerTable />

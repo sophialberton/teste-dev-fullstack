@@ -29,11 +29,38 @@ export const PrimaryButton = styled.button`
   }
 `;
 
+export const SearchContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  img {
+    position: absolute;
+    left: 12px; /* Ajuste para centralizar a lupa */
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    opacity: 0.5; /* Deixa a lupa mais sutil como no design */
+  }
+`;
+
 export const SearchInput = styled.input`
   width: 183px;
-  height: 25px;
-  border: 1px solid #E8E8E8;
-  border-radius: 4px;
-  padding: 0 8px;
-  font-size: 12px;
+  height: 32px; /* Aumentamos um pouco a altura para equilibrar com o botão */
+  background-color: #F2F2F2; /* Fundo cinza claro do design */
+  border: none; /* Removemos a borda para ficar "flat" */
+  border-radius: 10px; /* Bordas totalmente arredondadas (pílula) */
+  padding: 0 12px 0 36px; /* Aumentamos o padding esquerdo para a lupa */
+  font-size: 14px;
+  font-family: 'Red Hat Text', sans-serif;
+  color: #666D73;
+
+  &::placeholder {
+    color: #999;
+  }
+
+  &:focus {
+    outline: 2px solid #5D29A1; /* Opcional: destaque roxo ao clicar */
+    background-color: #EDEDED;
+  }
 `;
