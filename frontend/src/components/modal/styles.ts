@@ -1,0 +1,110 @@
+import styled from 'styled-components';
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`;
+
+export const ModalContent = styled.div`
+  background: white;
+  width: 480px;
+  border-radius: 12px;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+
+  .close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+`;
+
+export const ModalHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #232426;
+  }
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const Label = styled.label`
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+`;
+
+export const InputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .input-icon {
+    position: absolute;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.5;
+  }
+
+  input {
+    width: 100%;
+    height: 40px;
+    background: #F2F2F2;
+    border: 1px solid #E8E8E8;
+    border-radius: 8px;
+    padding: 0 12px 0 38px;
+    font-size: 14px;
+    color: #333;
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+`;
+
+export const SubmitButton = styled.button`
+  width: 100%;
+  height: 48px;
+  background: #5D29A1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+`;
