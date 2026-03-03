@@ -7,7 +7,9 @@ import styled from 'styled-components';
 import { useCustomer } from './contexts/CustomerContext';
 
 const MainContent = styled.main`
-  padding: 40px 96px; // Conforme o 'left: 96px' da sua especificação
+  padding: 104px 96px 40px; 
+  background-color: ${props => props.theme.colors.background};
+  min-height: 100vh;
 `;
 
 const ActionBar = styled.div`
