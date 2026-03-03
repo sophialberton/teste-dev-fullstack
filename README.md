@@ -95,3 +95,26 @@ Após executar o comando npm run dev na pasta frontend:
 # 📝 Observações Importantes
     Porta do Frontend: O servidor está configurado para rodar na porta 5173.
     Licença: Este projeto está sob a licença MIT.
+
+
+## 🚀 Backend (Node.js + MariaDB)
+
+### Pré-requisitos de Desenvolvimento
+Para que o TypeScript reconheça os módulos corretamente, certifique-se de:
+1. Instalar as tipagens de desenvolvimento: `npm install @types/express @types/cors @types/node -D`.
+2. O arquivo `tsconfig.json` deve ter a flag `"esModuleInterop": true` ativada.
+
+O serviço backend foi construído seguindo os princípios de **DDD (Domain-Driven Design)** para garantir escalabilidade e manutenção.
+
+### Tecnologias Utilizadas
+* Node.js
+* MariaDB (Persistência de dados)
+* Prisma ORM (Gestão de banco de dados)
+* Express / Fastify (Serviço REST)
+
+### Configuração do Banco de Dados
+1. Certifique-se de ter o **MariaDB** instalado e rodando.
+2. Crie um banco de dados chamado `goalfy_test`.
+3. No diretório `/backend`, crie um arquivo `.env` e configure sua conexão:
+   ```env
+   DATABASE_URL="mysql://seu_usuario:sua_senha@localhost:3306/goalfy_test"
