@@ -13,6 +13,7 @@ import {
 } from './styles';
 // Importamos o hook customizado que você criou no Context
 import { useCustomer } from '../../contexts/CustomerContext';
+import { ScrollContainer } from './styles';
 
 interface ModalProps {
   isOpen: boolean;
@@ -57,19 +58,19 @@ export const CustomerModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        
         <HeaderBar>
           <button onClick={onClose}>
-            <IoClose size={20} color="#999" />
+            <IoClose size={24} color="#232426" />
           </button>
         </HeaderBar>
 
-        <ModalHeader>
-          <img src="/src/assets/icon-registro.svg" alt="" />
-          <h2>Novo Cliente</h2>
-        </ModalHeader>
+        <ScrollContainer>
+          <ModalHeader>
+            <img src="/src/assets/icon-registro.svg" alt="" />
+            <h2>Novo Cliente</h2>
+          </ModalHeader>
 
-        <Form onSubmit={(e) => e.preventDefault()}>
+          <Form onSubmit={(e) => e.preventDefault()}>
           <InputGroup>
             <Label>Nome do Cliente</Label>
             <InputWrapper>
@@ -141,8 +142,9 @@ export const CustomerModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             </InputWrapper>
           </InputGroup>
 
-          <SubmitButton type="submit">Novo Registro</SubmitButton>
-        </Form>
+            <SubmitButton type="submit">Novo Registro</SubmitButton>
+          </Form>
+        </ScrollContainer>
       </ModalContent>
     </ModalOverlay>
   );
