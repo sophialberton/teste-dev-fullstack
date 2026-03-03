@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-// Verifique se este nome (TableContainer) está sendo exportado
 export const TableContainer = styled.div`
   width: 1304px;
   margin: 0 auto;
@@ -18,21 +17,58 @@ export const StyledTable = styled.table`
   thead tr {
     height: 49px;
     background: #FFFFFF;
+    position: relative;
   }
 
   th {
     text-align: left;
-    padding-left: 16px;
-    color: #666D73; /* Cor do Header do seu design */
+    padding: 0 16px;
+    color: #666D73;
     font-size: 13px;
     font-weight: 500;
     border-bottom: 1px solid #E8E8E8;
+    position: relative; /* Necessário para posicionar a divisória */
+
+    /* Criando a divisória vertical "incompleta" */
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 25%;      /* Inicia a 25% do topo */
+      height: 50%;   /* Ocupa apenas 50% da altura total da linha */
+      width: 1px;
+      background-color: #E8E8E8;
+    }
   }
 
   td {
     padding: 12px 16px;
     border-bottom: 1px solid #F5F5F5;
-    color: #363E40; /* Cor dos registros do seu design */
+    color: #363E40;
     font-size: 13px;
+    
+    /* Efeito de hover ou seleção conforme a imagem image_7e50e1 */
+    tr:hover & {
+      background-color: #F9F9F9;
+    }
+  }
+
+  /* Estilo para a linha selecionada (borda azul) conforme image_7e50e1 */
+  tbody tr.selected {
+    outline: 1px solid #0091FF;
+    background-color: #F0F7FF;
+  }
+`;
+
+// Container para alinhar ícone e texto no Header
+export const HeaderCellContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  img {
+    width: 16px;
+    height: 16px;
+    opacity: 0.6; /* Ajuste conforme a visibilidade no design */
   }
 `;
