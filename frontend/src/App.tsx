@@ -28,13 +28,22 @@ const ActionBar = styled.div`
   }
 `;
 
+const PageContainer = styled.div`
+  width: 100%;
+  max-width: 100vw; /* Garante que não ultrapasse a largura da tela */
+  margin: 0 auto;
+  padding: 104px 96px 40px; /* Mantém o alinhamento de 96px à esquerda */
+  box-sizing: border-box; /* Essencial para que o padding não "empurre" a largura para fora */
+  overflow-x: hidden; /* Evita o scroll horizontal indesejado na página inteira */
+`;
+
 function App() {
   const { customers } = useCustomer();
 
   return (
     <>
       <Header />
-      <MainContent>
+      <PageContainer>
         <ActionBar>
           <PrimaryButton>
           <img src={plusCircle} alt="Círculo Mais" className='circulo-mais'/>
@@ -47,7 +56,7 @@ function App() {
           <span>{customers.length} Registros</span>
         </ActionBar>
         <CustomerTable />
-      </MainContent>
+      </PageContainer>
     </>
   );
 }

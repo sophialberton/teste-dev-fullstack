@@ -30,6 +30,13 @@ const GoalfyLogo = styled.h1`
   margin-right: 12px; // Espaçamento até a divisória
 `;
 
+const BrandDivider = styled.div`
+  width: 1px;
+  height: 24px;
+  background-color: #E8E8E8;
+  margin: 0 16px; /* Ajuste para que a barra fique exatamente a 96px da borda da tela */
+`;
+
 const Divider = styled.div`
   width: 1px;
   height: 24px;

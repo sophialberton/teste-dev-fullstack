@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
 export const TableContainer = styled.div`
-  width: 1304px;
-  margin: 0 auto;
+  width: 100%; /* Ocupa todo o espaço disponível no PageContainer */
   background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  overflow: hidden;
   border: 1px solid #E8E8E8;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  overflow-x: auto; 
+  margin-top: 20px;
 `;
 
 export const StyledTable = styled.table`
-  width: 100%;
+  width: 100%; /* A tabela se expande para preencher o Wrapper */
   border-collapse: collapse;
-  
+  table-layout: auto; /* Permite que o navegador ajuste as colunas proporcionalmente */
   thead tr {
     height: 49px;
     background: #FFFFFF;
@@ -40,7 +40,7 @@ export const StyledTable = styled.table`
       background-color: #E8E8E8;
     }
   }
-
+  
   td {
     padding: 12px 16px;
     border-bottom: 1px solid #F5F5F5;
@@ -52,7 +52,9 @@ export const StyledTable = styled.table`
       background-color: #F9F9F9;
     }
   }
-
+  th, td {
+    white-space: nowrap; /* Evita que o texto quebre linha em telas menores */
+  }
   /* Estilo para a linha selecionada (borda azul) conforme image_7e50e1 */
   tbody tr.selected {
     outline: 1px solid #0091FF;
