@@ -6,7 +6,7 @@ Este documento detalha o funcionamento interno do sistema através de diagramas 
 
 Este fluxograma descreve a ordem em que os serviços e scripts são carregados para colocar a aplicação no ar.
 
-```
+```mermaid 
 graph TD
     subgraph Backend_NodeJS
         B1[server.ts: Entrada] --> B2[initDb.ts: Initialize]
@@ -31,7 +31,7 @@ graph TD
 
 O diagrama de sequência abaixo mostra o caminho de uma informação desde a interface do usuário até o disco rígido do servidor.
 
-```
+```mermaid 
 sequenceDiagram
     participant U as Usuário
     participant F as Frontend (Modal)
