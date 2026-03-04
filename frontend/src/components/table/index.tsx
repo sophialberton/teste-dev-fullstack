@@ -1,14 +1,17 @@
 import { TableContainer, StyledTable, HeaderCellContent } from './styles';
-import { useCustomer } from '../../contexts/CustomerContext';
-
+import { useCustomer, Customer } from '../../contexts/CustomerContext'; // Importa a interface Customer
 import cursorText from '../../assets/cursor-text.svg';
 import emailIcon from '../../assets/at.svg';
 import phoneIcon from '../../assets/telephone.svg';
 import cnpjIcon from '../../assets/card-list.svg';
 
-export const CustomerTable = () => {
-  // Pegamos os clientes e a função de deletar do contexto real
-  const { customers, deleteCustomer } = useCustomer();
+interface CustomerTableProps {
+  customers: Customer[]; // Define que agora recebe a lista por props
+}
+
+
+export const CustomerTable = ({ customers }: CustomerTableProps) => {
+  const { deleteCustomer } = useCustomer(); // Mantém apenas as funções de ação do contexto
 
   return (
     <TableContainer>

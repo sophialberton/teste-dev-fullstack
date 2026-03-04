@@ -1,9 +1,7 @@
 import { Header } from './components/header';
 import { CustomerTable } from './components/table';
-import { PrimaryButton } from './components/button/styles';
-import { SearchInput } from './components/button/styles';
-import { SearchContainer } from './components/button/styles';
-import { useState } from 'react';
+import { PrimaryButton, SearchInput, SearchContainer } from './components/button/styles';
+import { useState, useMemo } from 'react'; // Adicionado useMemo para performance
 import styled from 'styled-components';
 import { useCustomer } from './contexts/CustomerContext';
 import plusCircle from './assets/plus-circle.svg';
@@ -41,6 +39,16 @@ const PageContainer = styled.div`
 function App() { 
   const { customers } = useCustomer(); 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(''); // Estado para a pesquisa
+
+  // Lógica de filtragem
+  const filteredCustomers = useMemo(() => {
+    return customers.filter(customer => 
+      customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      customer.cnpj.includes(searchTerm)
+    );
+  }, [customers, searchTerm]);
 
   return (
     <>
@@ -48,17 +56,27 @@ function App() {
       <PageContainer>
         <ActionBar>
           <PrimaryButton onClick={() => setIsModalOpen(true)}>
-          <img src={plusCircle} alt="Círculo Mais" className='circulo-mais'/>
+            <img src={plusCircle} alt="Círculo Mais" className='circulo-mais'/>
             Novo Registro
           </PrimaryButton>
-            <SearchContainer>
-              <img src={searchIcon} alt="Lupa" />
-            <SearchInput placeholder="Pesquisar..." />
-            </SearchContainer>
-          <span>{customers.length} Registros</span>
+          
+          <SearchContainer>
+            <img src={searchIcon} alt="Lupa" />
+            <SearchInput 
+              placeholder="Pesquisar..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} // Atualiza o termo ao digitar
+            />
+          </SearchContainer>
+
+          {/* Mostra a contagem baseada no filtro ou no total */}
+          <span>{filteredCustomers.length} Registros</span>
         </ActionBar>
-        <CustomerTable />
+
+        {/* Importante: Passar os clientes filtrados para a tabela */}
+        <CustomerTable customers={filteredCustomers} /> 
       </PageContainer>
+
       <CustomerModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
