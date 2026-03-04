@@ -1,17 +1,17 @@
 // frontend/src/components/modal/index.tsx
 import React, { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
-import { 
-  ModalOverlay, 
-  ModalContent, 
+import {
+  ModalOverlay,
+  ModalContent,
   HeaderBar,
-  ModalHeader, 
-  Form, 
-  InputGroup, 
-  Label, 
-  InputWrapper, 
+  ModalHeader,
+  Form,
+  InputGroup,
+  Label,
+  InputWrapper,
   SubmitButton,
-  ScrollContainer 
+  ScrollContainer
 } from './styles';
 import { useCustomer } from '../../contexts/CustomerContext';
 
@@ -19,6 +19,25 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+// Funções utilitárias de formatação
+const formatPhone = (value: string) => {
+  return value
+    .replace(/\D/g, '') // Remove tudo o que não é dígito
+    .replace(/^(\d{2})(\d)/g, '($1) $2') // Coloca parênteses em volta dos dois primeiros dígitos
+    .replace(/(\d{5})(\d)/, '$1-$2') // Coloca o hífen após o quinto dígito
+    .substring(0, 15); // Limita o tamanho
+};
+
+const formatCNPJ = (value: string) => {
+  return value
+    .replace(/\D/g, '')
+    .replace(/^(\d{2})(\d)/, '$1.$2')
+    .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+    .replace(/\.(\d{3})(\d)/, '.$1/$2')
+    .replace(/(\d{4})(\d)/, '$1-$2')
+    .substring(0, 18);
+};
 
 export const CustomerModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const { fetchAddressByCep, addCustomer } = useCustomer();
@@ -32,11 +51,19 @@ export const CustomerModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [loadingCep, setLoadingCep] = useState(false);
+  // Handler para Telefone
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(formatPhone(e.target.value));
+  };
 
+  // Handler para CNPJ
+  const handleCnpjChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCnpj(formatCNPJ(e.target.value));
+  };
   // Busca de CEP Automática
   const handleCepChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
-    
+
     // Máscara xxxxx-xxx
     if (value.length > 5) {
       value = value.replace(/^(\d{5})(\d)/, '$1-$2');
@@ -46,8 +73,8 @@ export const CustomerModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     // Quando o CEP estiver completo (8 dígitos), faz a busca
     if (value.replace(/\D/g, '').length === 8) {
       setLoadingCep(true);
-      const data = await fetchAddressByCep(value); 
-      
+      const data = await fetchAddressByCep(value);
+
       if (data) {
         setAddress(`${data.logradouro}${data.bairro ? `, ${data.bairro}` : ''}`);
         setCity(`${data.localidade} - ${data.uf}`);
@@ -130,7 +157,12 @@ export const CustomerModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               <Label>Telefone</Label>
               <InputWrapper>
                 <img src="/src/assets/telephone.svg" alt="" className="input-icon" />
-                <input type="text" placeholder="Digite aqui..." value={phone} onChange={e => setPhone(e.target.value)} />
+                <input
+                  type="text"
+                  placeholder="(00) 00000-0000"
+                  value={phone}
+                  onChange={handlePhoneChange} // Usando a nova função
+                />
               </InputWrapper>
             </InputGroup>
 
@@ -138,7 +170,12 @@ export const CustomerModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               <Label>CNPJ</Label>
               <InputWrapper>
                 <img src="/src/assets/card-list.svg" alt="" className="input-icon" />
-                <input type="text" placeholder="Digite aqui..." value={cnpj} onChange={e => setCnpj(e.target.value)} />
+                <input
+                  type="text"
+                  placeholder="00.000.000/0000-00"
+                  value={cnpj}
+                  onChange={handleCnpjChange} // Usando a nova função
+                />
               </InputWrapper>
             </InputGroup>
 
