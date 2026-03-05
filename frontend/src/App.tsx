@@ -1,6 +1,6 @@
 import { Header } from './components/header';
 import { CustomerTable } from './components/table';
-import { PrimaryButton, SearchInput, SearchContainer } from './components/button/styles';
+import { PrimaryButton, SearchInput, SearchContainer } from './components/button/index';
 import { useState, useMemo } from 'react'; // Adicionado useMemo para performance
 import styled from 'styled-components';
 import { useCustomer } from './contexts/CustomerContext';

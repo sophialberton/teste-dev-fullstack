@@ -23,3 +23,18 @@ initializeDatabase().then(() => {
     console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
   });
 });
+
+const start = async () => {
+  try {
+    await initializeDatabase(); // Isso DEVE rodar antes do app.listen
+    console.log('✅ Banco de dados inicializado');
+    
+    app.listen(3333, () => {
+      console.log('🚀 Servidor rodando em http://localhost:3333');
+    });
+  } catch (error) {
+    console.error('❌ Falha ao iniciar o servidor:', error);
+  }
+};
+
+start();
