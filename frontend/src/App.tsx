@@ -1,20 +1,31 @@
 import { Header } from './components/header';
 import { CustomerTable } from './components/table';
 import { PrimaryButton, SearchInput, SearchContainer } from './components/button/index';
-import { useState, useMemo } from 'react'; // Adicionado useMemo para performance
+import { useState, useMemo } from 'react'; 
 import styled from 'styled-components';
 import { useCustomer } from './contexts/CustomerContext';
 import plusCircle from './assets/plus-circle.svg';
 import searchIcon from './assets/search.svg';
 import { CustomerModal } from './components/modal';
 
-export const MainContent = styled.main`
+// 1. O Wrapper principal ocupa toda a altura da tela (100vh)
+const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 80px); /* Altura total menos o seu Header */
-  padding: 24px;              /* Este é o espaço fixo (respiro) em todos os lados */
+  height: 100vh;
+  background-color: ${props => props.theme.colors.background};
+  overflow: hidden; /* Impede que a página inteira role */
+`;
+
+// 2. A ContentArea preenche o espaço abaixo do Header fixo
+const ContentArea = styled.main`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* 80px compensa o Header. 96px de padding nas laterais conforme o Figma */
+  padding: 80px 96px 40px; 
   box-sizing: border-box;
-  overflow: hidden;           /* Impede que a página inteira tenha scroll */
+  overflow: hidden; /* Garante que apenas a tabela dentro dela tenha scroll */
 `;
 
 const ActionBar = styled.div`
@@ -22,6 +33,7 @@ const ActionBar = styled.div`
   align-items: center;
   gap: 16px;
   margin-bottom: 25px;
+  flex-shrink: 0; /* Impede que a barra de busca "encolha" */
 
   span {
     font-size: 12px;
@@ -30,21 +42,11 @@ const ActionBar = styled.div`
   }
 `;
 
-const PageContainer = styled.div`
-  width: 100%;
-  max-width: 100vw; /* Garante que não ultrapasse a largura da tela */
-  margin: 0 auto;
-  padding: 104px 96px 40px; /* Mantém o alinhamento de 96px à esquerda */
-  box-sizing: border-box; /* Essencial para que o padding não "empurre" a largura para fora */
-  overflow-x: hidden; /* Evita o scroll horizontal indesejado na página inteira */
-`;
-
 function App() { 
   const { customers } = useCustomer(); 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(''); // Estado para a pesquisa
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // Lógica de filtragem
   const filteredCustomers = useMemo(() => {
     return customers.filter(customer => 
       customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -54,9 +56,10 @@ function App() {
   }, [customers, searchTerm]);
 
   return (
-    <>
+    <AppWrapper>
       <Header />
-      <PageContainer>
+      
+      <ContentArea>
         <ActionBar>
           <PrimaryButton onClick={() => setIsModalOpen(true)}>
             <img src={plusCircle} alt="Círculo Mais" className='circulo-mais'/>
@@ -68,23 +71,22 @@ function App() {
             <SearchInput 
               placeholder="Pesquisar..." 
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)} // Atualiza o termo ao digitar
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </SearchContainer>
 
-          {/* Mostra a contagem baseada no filtro ou no total */}
           <span>{filteredCustomers.length} Registros</span>
         </ActionBar>
 
-        {/* Importante: Passar os clientes filtrados para a tabela */}
+        {/* A tabela agora crescerá para ocupar todo o fundo da ContentArea */}
         <CustomerTable customers={filteredCustomers} /> 
-      </PageContainer>
+      </ContentArea>
 
       <CustomerModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
       />
-    </>
+    </AppWrapper>
   );
 }
 

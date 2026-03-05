@@ -23,26 +23,29 @@ export const TableContainer = styled.div`
   overflow-y: auto;           /* Ativa a rolagem interna */
   flex-direction: column;
   width: 100%;
-  max-height: 450px; /* Define a altura máxima interna da tabela */
-  overflow-y: auto;  /* Ativa a barra de rolagem interna */
+  background: #ffffff;
   border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E6E6E6;
+  overflow-y: auto;           /* Habilita a barra lateral interna */
+  display: flex;
+  flex-direction: column;
 
-  /* Estilização da barra de rolagem para ficar discreta dentro da tabela */
+  /* Scrollbar discreta para não poluir o visual do Figma */
   &::-webkit-scrollbar {
     width: 6px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #e0e0e0;
+    background-color: #DDD;
     border-radius: 10px;
   }
+
 `;
 export const StyledTable = styled.table`
   width: 100%; /* A tabela se expande para preencher o Wrapper */
   border-collapse: collapse;
   table-layout: auto; /* Permite que o navegador ajuste as colunas proporcionalmente */
-  
+  min-height: 100%;
+
   thead {
     position: sticky;         /* O "pulo do gato" para fixar o cabeçalho */
     top: 0;                   /* Fixa no topo do TableContainer */
@@ -57,6 +60,7 @@ export const StyledTable = styled.table`
   }
 
   th {
+  height: 49px;
     text-align: left;
     padding: 0 16px;
     color: #666D73;
