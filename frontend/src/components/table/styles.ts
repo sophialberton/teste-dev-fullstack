@@ -29,6 +29,13 @@ export const TableContainer = styled.div`
   overflow-y: auto;           /* Habilita a barra lateral interna */
   display: flex;
   flex-direction: column;
+/* Mantém o espaço da barra reservado para não "pular" o layout */
+  scrollbar-gutter: stable; 
+  overflow-y: auto; 
+  
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 
   /* Scrollbar discreta para não poluir o visual do Figma */
   &::-webkit-scrollbar {
@@ -41,10 +48,9 @@ export const TableContainer = styled.div`
 
 `;
 export const StyledTable = styled.table`
-  width: 100%; /* A tabela se expande para preencher o Wrapper */
+  width: 100%;
   border-collapse: collapse;
   table-layout: auto; /* Permite que o navegador ajuste as colunas proporcionalmente */
-  min-height: 100%;
 
   thead {
     position: sticky;         /* O "pulo do gato" para fixar o cabeçalho */
@@ -52,24 +58,39 @@ export const StyledTable = styled.table`
     z-index: 10;              /* Garante que fique acima das linhas de dados */
     background-color: #f9f9f9; /* Cor sólida para não ser transparente ao rolar */
   }
-  
+  /* REMOVA qualquer height: 100% ou flex: 1 daqui */
+  /* Isso garante que ela só ocupe o espaço das linhas existentes */
+
   thead tr {
     height: 49px;
     background: #FFFFFF;
-    position: relative;
+    position: sticky; /* Cabeçalho fixo */
+    top: 0;
+    z-index: 10;
   }
 
-  th {
-  height: 49px;
+ th {
     text-align: left;
     padding: 0 16px;
     color: #666D73;
     font-size: 13px;
     font-weight: 500;
     border-bottom: 1px solid #E8E8E8;
-    position: relative; /* Necessário para posicionar a divisória */
+    background: #FFFFFF; /* Fundo sólido para cobrir as linhas no scroll */
+    position: relative;   /* Necessário para a divisória ::after */
 
-    /* Criando a divisória vertical "incompleta" */
+    /* Divisória vertical incompleta (50% da altura) */
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 25%;      /* Inicia a 25% do topo */
+      height: 50%;   /* Ocupa 50% da altura total */
+      width: 1px;
+      background-color: #E8E8E8;
+    }
+  }
+  /* Criando a divisória vertical "incompleta" */
     &:not(:last-child)::after {
       content: '';
       position: absolute;
@@ -80,10 +101,15 @@ export const StyledTable = styled.table`
       background-color: #E8E8E8;
     }
   }
-   tbody tr {
-    background-color: #F9F9F9; 
-    transition: background-color 0.2s;
+  tbody tr {
+    height: 45px;
+    background-color: #F9F9F9; /* A cor de fundo que você queria */
+    
+    &:hover {
+      background-color: #F2F2F2; /* Um tom levemente diferente no hover */
+    }
   }
+
   td {
     padding: 12px 16px;
     border-bottom: 1px solid #F5F5F5;

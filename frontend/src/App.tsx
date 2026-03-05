@@ -8,24 +8,21 @@ import plusCircle from './assets/plus-circle.svg';
 import searchIcon from './assets/search.svg';
 import { CustomerModal } from './components/modal';
 
-// 1. O Wrapper principal ocupa toda a altura da tela (100vh)
 const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: ${props => props.theme.colors.background};
-  overflow: hidden; /* Impede que a página inteira role */
+  overflow: hidden;
 `;
 
-// 2. A ContentArea preenche o espaço abaixo do Header fixo
 const ContentArea = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* 80px compensa o Header. 96px de padding nas laterais conforme o Figma */
+  /* Padding seguindo o Figma: Topo 80px (já considerando header), Laterais 96px */
   padding: 80px 96px 40px; 
-  box-sizing: border-box;
-  overflow: hidden; /* Garante que apenas a tabela dentro dela tenha scroll */
+  background-color: #F8F8F8;
+  overflow: hidden;
 `;
 
 const ActionBar = styled.div`
