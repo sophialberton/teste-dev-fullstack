@@ -8,10 +8,13 @@ import plusCircle from './assets/plus-circle.svg';
 import searchIcon from './assets/search.svg';
 import { CustomerModal } from './components/modal';
 
-const MainContent = styled.main`
-  padding: 104px 96px 40px; 
-  background-color: ${props => props.theme.colors.background};
-  min-height: 100vh;
+export const MainContent = styled.main`
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px); /* Altura total menos o seu Header */
+  padding: 24px;              /* Este é o espaço fixo (respiro) em todos os lados */
+  box-sizing: border-box;
+  overflow: hidden;           /* Impede que a página inteira tenha scroll */
 `;
 
 const ActionBar = styled.div`

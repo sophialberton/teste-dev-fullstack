@@ -1,19 +1,55 @@
 import styled from 'styled-components';
 
-export const TableContainer = styled.div`
-  width: 100%; /* Ocupa todo o espaço disponível no PageContainer */
+export const TableWrapper = styled.div`
+  width: 100%;
   background: white;
   border-radius: 8px;
-  border: 1px solid #E8E8E8;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  overflow-x: auto; 
-  margin-top: 20px;
+    max-height: 70vh; /* Ajuste para ocupar 70% da altura da tela, por exemplo */
+  overflow-y: auto;  /* Habilita a barra lateral se houver muitos registros */
+  overflow-x: auto;  /* Mantém a barra horizontal se for muito larga */
+
+  /* Estilo opcional para deixar a barra de rolagem mais bonita */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
 `;
 
+export const TableContainer = styled.div`
+  flex: 1;                    /* Faz a tabela esticar e ocupar o espaço disponível */
+  overflow-y: auto;           /* Ativa a rolagem interna */
+  flex-direction: column;
+  width: 100%;
+  max-height: 450px; /* Define a altura máxima interna da tabela */
+  overflow-y: auto;  /* Ativa a barra de rolagem interna */
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  /* Estilização da barra de rolagem para ficar discreta dentro da tabela */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+    border-radius: 10px;
+  }
+`;
 export const StyledTable = styled.table`
   width: 100%; /* A tabela se expande para preencher o Wrapper */
   border-collapse: collapse;
   table-layout: auto; /* Permite que o navegador ajuste as colunas proporcionalmente */
+  
+  thead {
+    position: sticky;         /* O "pulo do gato" para fixar o cabeçalho */
+    top: 0;                   /* Fixa no topo do TableContainer */
+    z-index: 10;              /* Garante que fique acima das linhas de dados */
+    background-color: #f9f9f9; /* Cor sólida para não ser transparente ao rolar */
+  }
+  
   thead tr {
     height: 49px;
     background: #FFFFFF;
